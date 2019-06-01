@@ -6,6 +6,7 @@ import (
     "log"
     "net/http"
     "strings"
+    "reflect"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
@@ -30,8 +31,13 @@ func login(w http.ResponseWriter, r *http.Request) {
     } else {
         //请求的是登陆数据，那么执行登陆的逻辑判断
         r.ParseForm()
-        fmt.Println("username:", r.Form["username"])
-        fmt.Println("password:", r.Form["password"])
+        for k, v := range r.Form{
+            fmt.Println(k,v)
+            fmt.Println(reflect.TypeOf(v))
+        }
+        //大佬请看一下问题出错的地方
+        fmt.Println(r.Form["username"])
+        fmt.Println(r.Form["password"])
     }
 }
 
